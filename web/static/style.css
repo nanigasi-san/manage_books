@@ -1,0 +1,14 @@
+body {
+  margin-top: 20px;
+  margin-left: 50px;
+  max-width: 900px;
+  background: beige;
+}
+
+h1{
+  background: olive;
+  color: khaki;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+}

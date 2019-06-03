@@ -12,3 +12,23 @@ h1{
   padding-bottom: 10px;
   padding-left: 20px;
 }
+
+table{
+  background: #dbebc4;
+  margin-left: 20px;
+  padding: 10px;
+}
+
+td,th{
+  text-align: left;
+  padding-right: 10px;
+}
+
+.keyname{
+  color: olive;
+}
+
+.list{
+  color: maroon;
+  padding-bottom: 10px;
+}

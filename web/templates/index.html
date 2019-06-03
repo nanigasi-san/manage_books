@@ -15,7 +15,7 @@
   {% for book in books %}
     <tr class="list">
     <td>{{book['title']}}</td>
-    <td><a href="{{ url_for('authors.show') }}">{{book['author']}}</a></td>
+    <td><a href="{{ url_for('authors.show',author=book['author']) }}">{{book['author']}}</a></td>
     <td>{{book['genre']}}</td>
     </tr>
   {% endfor %}

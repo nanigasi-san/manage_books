@@ -23,6 +23,6 @@ def search_author(author):
         if author==data["author"]:
             return data
 
-@bp.route("/authors")
-def show():
-    return render_template("authors.html")
+@bp.route("/authors/<author>")
+def show(author):
+    return render_template("authors.html",data=search_author(author))

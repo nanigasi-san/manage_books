@@ -1,22 +1,26 @@
-from flask import Blueprint,render_template,request
+from flask import Blueprint,render_template,request,redirect,url_for
+from web.bookdb import get_db
 
 bp = Blueprint("books",__name__)
 @bp.route("/",methods=["GET","POST"])
 def index():
+    db = get_db()
+    alldata = db.execute("SELECT * FROM books").fetchall()
     if request.method == "POST":
         genre = request.form["genre"]
         message = '分野が「{0}」を含む本は'.format(genre)
-        
-        searchdata = search_testdata("genre",genre)
+
+        searchdata = db.execute("SELECT * FROM books WHERE genre like '%"+genre+"%'").fetchall()
+
         if len(searchdata)>0:
             message += "以下の通りです"
         else:
-            searchdata = get_testdata()
+            searchdata = alldata
             message += "見つかりませんでした"
         return render_template("index.html",message=message,books=searchdata)
     else:
         message="お探しの分野は何ですか"
-        return render_template("index.html",message=message,books=get_testdata())
+        return render_template("index.html",message=message,books=alldata)
 
 def get_testdata():
     return [
@@ -31,3 +35,7 @@ def get_testdata():
 def search_testdata(key,sword):
     alldata = get_testdata()
     return [data for data in alldata if (sword in data[key])]
+
+@bp.route("/newbook",methods=["GET","POST"])
+def newbook():
+    pass

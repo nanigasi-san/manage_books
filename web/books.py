@@ -38,4 +38,16 @@ def search_testdata(key,sword):
 
 @bp.route("/newbook",methods=["GET","POST"])
 def newbook():
-    pass
+    if request.method == "POST":
+        title = request.form["title"]
+        author = request.form["author"]
+        genre = request.form["genre"]
+        db = get_db()
+        db.execute(
+        "INSERT INTO books (title, author, genre) VALUES (?, ?, ?)",
+        (title,author,genre)
+        )
+        db.commit()
+        return redirect(url_for("books.index"))
+    else:
+        return render_template("newbook.html")

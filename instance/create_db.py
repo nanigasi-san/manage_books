@@ -5,10 +5,11 @@ CREATE_TABLE="""CREATE TABLE books
 (id INTEGER PRIMARY KEY AUTOINCREMENT,
 author TEXT,
 title TEXT,
-genre TEXT)"""
+genre TEXT,
+now BOOLEAN)"""
 
-TEST_INSERT="""INSERT INTO books (title, author, genre)
-VALUES ('プリンキピア','ニュートン','物理')"""
+TEST_INSERT="""INSERT INTO books (title, author, genre, now)
+VALUES ('プリンキピア','ニュートン','物理',FALSE)"""
 
 TEST_SELECT="SELECT * FROM books"
 

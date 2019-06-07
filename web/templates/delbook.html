@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{%block header %}
+  <h1>{% block title %}書籍削除{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<h2>書籍の削除</h2>
+<form class="delform" method="post">
+  <p><input name="id" value=""></p>
+  <p><input type="submit" value="削除"></p>
+</form>
+{% endblock %}

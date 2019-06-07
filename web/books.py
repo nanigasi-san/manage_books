@@ -38,4 +38,29 @@ def search_testdata(key,sword):
 
 @bp.route("/newbook",methods=["GET","POST"])
 def newbook():
-    pass
+    if request.method == "POST":
+        title = request.form["title"]
+        author = request.form["author"]
+        genre = request.form["genre"]
+        db = get_db()
+        db.execute(
+        "INSERT INTO books (title, author, genre, now) VALUES (?, ?, ?, ?)",
+        (title,author,genre,False)
+        )
+        db.commit()
+        return redirect(url_for("books.index"))
+    else:
+        return render_template("newbook.html")
+
+@bp.route("/delbook",methods=["GET","POST"])
+def delbook():
+    if request.method == "POST":
+        id = request.form["id"]
+        db = get_db()
+        db.execute(
+        "DELETE FROM books WHERE id = {0}".format(id)
+        )
+        db.commit()
+        return redirect(url_for("books.index"))
+    else:
+        return render_template("delbook.html")

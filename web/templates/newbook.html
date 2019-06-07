@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{%block header %}
+  <h1>{% block title %}新規書籍登録{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<h2>新規書籍の追加</h2>
+<form class="newform" method="post">
+  <p><label for="title">書名</label>
+  <input name="title" id="title"></p>
+  <p><label for="author">著者</label>
+  <input name="author" id="author"></p>
+  <p><label for="genre">分野</label>
+  <input name="genre" id="genre"></p>
+  <p><input type="submit" value="登録"></p>
+</form>
+{% endblock %}

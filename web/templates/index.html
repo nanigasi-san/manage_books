@@ -12,11 +12,10 @@
 </form>
 <table>
   <tr class="keyname">
-    <th>id</th><th>書名</th><th>著者</th><th>分野</th><th>状態</th>
+    <th>書名</th><th>著者</th><th>分野</th><th>状態</th>
   </tr>
   {% for book in books %}
     <tr class="list">
-      <td>{{book['id']}}</td>
     <td>{{book['title']}}</td>
     <td><a href="{{ url_for('authors.show',author=book['author']) }}">{{book['author']}}</a></td>
     <td>{{book['genre']}}</td>

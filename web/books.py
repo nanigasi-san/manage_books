@@ -1,4 +1,4 @@
-from flask import Blueprint,render_template,request,redirect,url_for
+from flask import Blueprint,render_template,request,redirect,url_for,jsonify
 from web.bookdb import get_db
 
 bp = Blueprint("books",__name__)
@@ -64,3 +64,17 @@ def delbook():
         return redirect(url_for("books.index"))
     else:
         return render_template("delbook.html")
+
+
+@bp.route("/books_data",methods=["GET"])
+def books_data():
+    try:
+        db = get_db()
+        titles = db.execute(
+        "SELECT title FROM books"
+        ).fetchall()
+        db.commit()
+        titles = [title[0] for title in titles]
+        return jsonify(res=":)",data=titles)
+    except:
+        return jsonify(res=":(")

@@ -19,7 +19,7 @@
     <td>{{book['title']}}</td>
     <td><a href="{{ url_for('authors.show',author=book['author']) }}">{{book['author']}}</a></td>
     <td>{{book['genre']}}</td>
-    <td>{{"貸し出し中" if book['now'] else "貸出可"}}</td>
+    <td>{{"貸し出し中" if book['lending'] else "貸出可"}}</td>
     </tr>
   {% endfor %}
 </table>

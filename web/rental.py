@@ -9,12 +9,11 @@ def rental():
     id_title_dic = {}
     for row in all:
         id_title_dic[row[2]] = row[0]
-    print(id_title_dic)
     try:
         data = json.loads(request.data.decode("utf-8"))
         print(data)
         db.execute(
-        "UPDATE books set now = {0} WHERE id = {1}".format(data["now"],id_title_dic[data["title"]]))
+        "UPDATE books set lending = {0} WHERE id = {1}".format(data["lending"],id_title_dic[data["title"]]))
         db.commit()
         return jsonify(res=":)")
     except:

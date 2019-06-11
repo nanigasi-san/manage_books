@@ -9,6 +9,11 @@ def post_and_responce(data):
     res = requests.post(URL,data=data).json()
     return res
 
+def get_books():
+    URL = "http://127.0.0.1:5000/books_data"
+    res = requests.get(URL).json()
+    return (res["data"],res["res"])
+
 @client.event
 async def on_ready():
     userlist = client.users
@@ -37,5 +42,9 @@ async def on_message(msg):
         res = post_and_responce(json.dumps(data))
         await channel.send(str(res["res"]))
 
+    if msg.content == "$books":
+        books,_ = get_books()
+        book_str = "\n".join(books)
+        await channel.send(book_str)
 
 client.run(TOKEN)

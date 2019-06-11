@@ -32,7 +32,7 @@ async def on_message(msg):
         data = {"lending": True,
                 "title": book_title}
         res = post_and_responce(json.dumps(data))
-        await channel.send(str(res))
+        await channel.send(str(res["res"]))
 
     if msg.content[:7] == "$return":
         book_title = msg.content[8:]

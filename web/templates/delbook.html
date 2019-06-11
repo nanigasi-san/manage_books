@@ -1,13 +1,15 @@
 {% extends 'base.html' %}
 
 {%block header %}
-  <h1>{% block title %}書籍削除{% endblock %}</h1>
+{% block title %}書籍の削除{% endblock %}
 {% endblock %}
 
 {% block content %}
-<h2>書籍の削除</h2>
+<h1>書籍の削除</h1>
 <form class="delform" method="post">
-  <p><input name="id" value=""></p>
+  <p>  <label for="title">削除する書籍のタイトル</label>
+<input type="text" name="title" value=""></p>
   <p><input type="submit" value="削除"></p>
 </form>
+<a href="/">戻る</a>
 {% endblock %}

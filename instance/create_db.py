@@ -6,9 +6,9 @@ CREATE_TABLE="""CREATE TABLE books
 author TEXT,
 title TEXT,
 genre TEXT,
-now BOOLEAN)"""
+lending BOOLEAN)"""
 
-TEST_INSERT="""INSERT INTO books (title, author, genre, now)
+TEST_INSERT="""INSERT INTO books (title, author, genre, lending)
 VALUES ('プリンキピア','ニュートン','物理',FALSE)"""
 
 TEST_SELECT="SELECT * FROM books"

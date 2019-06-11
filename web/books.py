@@ -44,7 +44,7 @@ def newbook():
         genre = request.form["genre"]
         db = get_db()
         db.execute(
-        "INSERT INTO books (title, author, genre, now) VALUES (?, ?, ?, ?)",
+        "INSERT INTO books (title, author, genre, lending) VALUES (?, ?, ?, ?)",
         (title,author,genre,False)
         )
         db.commit()

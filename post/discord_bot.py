@@ -28,9 +28,10 @@ async def on_message(msg):
 
     if msg.content[:5] == "$rent":
         book_title = msg.content[6:]
-        username = msg.author
+        username = str(msg.author)
         data = {"lending": True,
-                "title": book_title}
+                "title": book_title,
+                "username": username}
         res = post_and_responce(json.dumps(data))
         await channel.send(str(res["res"]))
 

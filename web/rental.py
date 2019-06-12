@@ -14,6 +14,9 @@ def rental():
         print(data)
         db.execute(
         "UPDATE books set lending = {0} WHERE id = {1}".format(data["lending"],id_title_dic[data["title"]]))
+
+        db.execute(
+        "UPDATE books set username = '{0}' WHERE id = {1}".format(data["username"],id_title_dic[data["title"]]))
         db.commit()
         return jsonify(res=":)")
     except:

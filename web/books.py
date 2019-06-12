@@ -55,10 +55,10 @@ def newbook():
 @bp.route("/delbook",methods=["GET","POST"])
 def delbook():
     if request.method == "POST":
-        id = request.form["id"]
+        title = request.form["title"]
         db = get_db()
         db.execute(
-        "DELETE FROM books WHERE id = {0}".format(id)
+        "DELETE FROM books WHERE title = '{0}'".format(title)
         )
         db.commit()
         return redirect(url_for("books.index"))

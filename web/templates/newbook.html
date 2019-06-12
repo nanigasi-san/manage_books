@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
 {%block header %}
-  <h1>{% block title %}新規書籍登録{% endblock %}</h1>
+{% block title %}新規書籍登録{% endblock %}
 {% endblock %}
 
 {% block content %}
-<h2>新規書籍の追加</h2>
+<h1>新規書籍の追加</h1>
 <form class="newform" method="post">
   <p><label for="title">書名</label>
   <input name="title" id="title"></p>
@@ -15,4 +15,5 @@
   <input name="genre" id="genre"></p>
   <p><input type="submit" value="登録"></p>
 </form>
+<a href="/">戻る</a>
 {% endblock %}

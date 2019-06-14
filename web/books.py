@@ -43,6 +43,13 @@ def newbook():
         author = request.form["author"]
         genre = request.form["genre"]
         db = get_db()
+        titles = db.execute(
+        "SELECT * FROM books WHERE title = '{0}'".format(title)
+        ).fetchall()
+        titles = [t[0] for t in titles]
+        if len(titles) == 1:
+            return render_template("newbook.html")
+        db.commit()
         db.execute(
         "INSERT INTO books (title, author, genre, lending, username) VALUES (?, ?, ?, ?, ?)",
         (title,author,genre,False,'')
@@ -71,10 +78,11 @@ def books_data():
     try:
         db = get_db()
         titles = db.execute(
-        "SELECT title FROM books"
+        "SELECT title,username FROM books"
         ).fetchall()
         db.commit()
-        titles = [title[0] for title in titles]
+        titles = [(title[0],title[1]) for title in titles]
+        print(titles)
         return jsonify(res=":)",data=titles)
     except:
         return jsonify(res=":(")

@@ -46,7 +46,8 @@ async def on_message(msg):
 
     if msg.content == "$books":
         books,_ = get_books()
-        book_str = "\n".join(books)
+        title_user = [str(t)+"："+str(u) for t,u in books]
+        book_str = "\n".join(title_user)
         await channel.send(book_str)
 
 client.run(TOKEN)

@@ -78,10 +78,11 @@ def books_data():
     try:
         db = get_db()
         titles = db.execute(
-        "SELECT title FROM books"
+        "SELECT title,username FROM books"
         ).fetchall()
         db.commit()
-        titles = [title[0] for title in titles]
+        titles = [(title[0],title[1]) for title in titles]
+        print(titles)
         return jsonify(res=":)",data=titles)
     except:
         return jsonify(res=":(")

@@ -4,10 +4,10 @@ import json
 
 TOKEN = "NTExNjk1MDQxODc4NTU2Njk0.XP9KQw.p1blUZuBk6LURPQtGCytbozHYP8"#アクセストークン
 client = discord.Client()
-def post_and_responce(data):
-    URL = "http://127.0.0.1:5000/rental"
-    res = requests.post(URL,data=data).json()
-    return res
+def post_and_responce(subject,data):
+    URL = "http://127.0.0.1:5000/"+subject
+    res = requests.post(url=URL,data=data)
+    return res.json()
 
 def get_books():
     URL = "http://127.0.0.1:5000/books_data"
@@ -32,7 +32,7 @@ async def on_message(msg):
         data = {"lending": True,
                 "title": book_title,
                 "username": username}
-        res = post_and_responce(json.dumps(data))
+        res = post_and_responce("rental",json.dumps(data))
         await channel.send(str(res["res"]))
 
     if msg.content[:7] == "$return":
@@ -41,7 +41,7 @@ async def on_message(msg):
         data = {"lending": False,
                 "title": book_title,
                 "username": ''}
-        res = post_and_responce(json.dumps(data))
+        res = post_and_responce("rental",json.dumps(data))
         await channel.send(str(res["res"]))
 
     if msg.content == "$books":
@@ -49,5 +49,13 @@ async def on_message(msg):
         title_user = [str(t)+"："+str(u) for t,u in books]
         book_str = "\n".join(title_user)
         await channel.send(book_str)
+    
+    if msg.content[:4] == "$add":
+        book_data = msg.content[5:].split("\n")
+        data = {"title":book_data[0],
+                "author":book_data[1],
+                "genre":book_data[2]}
+        res = post_and_responce("newbook",json.dumps(data))
+    await channel.send(str(res["res"]))
 
 client.run(TOKEN)

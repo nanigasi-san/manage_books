@@ -7,10 +7,11 @@ author TEXT,
 title TEXT,
 genre TEXT,
 lending BOOLEAN,
-username TEXT)"""
+username TEXT,
+timestamp TEXT)"""
 
-TEST_INSERT="""INSERT INTO books (title, author, genre, lending, username)
-VALUES ('プリンキピア','ニュートン','物理',FALSE,'')"""
+TEST_INSERT="""INSERT INTO books (title, author, genre, lending, username, timestamp)
+VALUES ('プリンキピア','ニュートン','物理',FALSE,'','')"""
 
 TEST_SELECT="SELECT * FROM books"
 

@@ -1,6 +1,7 @@
 import discord
 import requests
 from json import dumps
+from datetime import datetime
 
 TOKEN = "NTExNjk1MDQxODc4NTU2Njk0.XP9KQw.p1blUZuBk6LURPQtGCytbozHYP8"#アクセストークン
 client = discord.Client()
@@ -29,11 +30,13 @@ async def on_message(msg):
         return
 
     if msg.content[:5] == "$rent":
+        timestamp = datetime.now().strftime("%Y/%m/%d-%H:%M:%S")
         book_title = msg.content[6:]
         username = str(msg.author)
         data = {"lending": True,
                 "title": book_title,
-                "username": username}
+                "username": username,
+                "timestamp": timestamp}
         res = post_and_responce("rental",dumps(data))
         await channel.send(res["res"])
 
@@ -42,13 +45,14 @@ async def on_message(msg):
         username = str(msg.author)
         data = {"lending": False,
                 "title": book_title,
-                "username": ''}
+                "username": '',
+                "timestamp": ''}
         res = post_and_responce("rental",dumps(data))
         await channel.send(res["res"])
 
     if msg.content == "$books":
         books = get_books()["data"]
-        title_user = [str(t)+"："+str(u) for t,u in books]
+        title_user = [str(t)+"："+str(u)+"："+str(s) for t,u,s in books]
         book_str = "\n".join(title_user)
         await channel.send(book_str)
 

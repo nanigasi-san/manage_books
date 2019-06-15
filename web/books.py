@@ -22,8 +22,8 @@ def newbook():
         return jsonify(res=":(",message="タイトルが重複しています")
     db.commit()
     db.execute(
-    "INSERT INTO books (title, author, genre, lending, username) VALUES (?, ?, ?, ?, ?)",
-    (title,author,genre,False,'')
+    "INSERT INTO books (title, author, genre, lending, username, timestamp) VALUES (?, ?, ?, ?, ?, ?)",
+    (title,author,genre,False,'','')
     )
     db.commit()
     return jsonify(res=":)")
@@ -50,10 +50,10 @@ def books_data():
     try:
         db = get_db()
         titles = db.execute(
-        "SELECT title,username FROM books"
+        "SELECT title,username,timestamp FROM books"
         ).fetchall()
         db.commit()
-        titles = [(title[0],title[1]) for title in titles]
+        titles = [(title[0],title[1],title[2]) for title in titles]
         print(titles)
         return jsonify(res=":)",data=titles)
     except:

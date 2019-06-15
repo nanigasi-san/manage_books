@@ -29,18 +29,19 @@ def newbook():
     return jsonify(res=":)")
 
 
-@bp.route("/delbook",methods=["GET","POST"])
+@bp.route("/delbook",methods=["POST"])
 def delbook():
-    if request.method == "POST":
-        title = request.form["title"]
+    try:
+        posted_data = request.data.decode("utf-8")
+        data = json.loads(posted_data)
+        title = data["title"]
         db = get_db()
         db.execute(
         "DELETE FROM books WHERE title = '{0}'".format(title)
         )
         db.commit()
-        return redirect(url_for("books.index"))
-    else:
-        return render_template("delbook.html")
+    except:
+        return jsonify(res=":(")
 
 
 @bp.route("/books_data",methods=["GET"])

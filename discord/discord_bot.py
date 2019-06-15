@@ -56,6 +56,12 @@ async def on_message(msg):
                 "author":book_data[1],
                 "genre":book_data[2]}
         res = post_and_responce("newbook",json.dumps(data))
-    await channel.send(str(res["res"]))
+        await channel.send(str(res["res"]))
+
+    if msg.content[:4] == "$del":
+        book_title = msg.content[5:]
+        data = {"title":book_title}
+        res = post_and_responce("delbook",json.dumps(data))
+        await channel.send(str(res["res"]))
 
 client.run(TOKEN)

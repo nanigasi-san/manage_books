@@ -3,9 +3,8 @@ import os
 
 def create_app():
     app = Flask(__name__)
-    from . import books,authors,rental
+    from . import books,rental
     app.register_blueprint(books.bp)
-    app.register_blueprint(authors.bp)
     app.register_blueprint(rental.bp)
 
     from . import bookdb

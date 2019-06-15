@@ -1,6 +1,5 @@
 from flask import Blueprint,render_template,request,redirect,url_for,jsonify
 from web.bookdb import get_db
-import json
 
 bp = Blueprint("books",__name__)
 @bp.route("/",methods=["GET","POST"])
@@ -40,16 +39,9 @@ def search_testdata(key,sword):
 @bp.route("/newbook",methods=["GET","POST"])
 def newbook():
     if request.method == "POST":
-        try:
-            title = request.form["title"]
-            author = request.form["author"]
-            genre = request.form["genre"]
-        except:
-            posted_data = json.loads(request.data.decode("utf-8"))
-            title = posted_data["title"]
-            author = posted_data["author"]
-            genre = posted_data["genre"]
-        print(title,author,genre)
+        title = request.form["title"]
+        author = request.form["author"]
+        genre = request.form["genre"]
         db = get_db()
         titles = db.execute(
         "SELECT * FROM books WHERE title = '{0}'".format(title)
@@ -70,11 +62,7 @@ def newbook():
 @bp.route("/delbook",methods=["GET","POST"])
 def delbook():
     if request.method == "POST":
-        try:
-            title = request.form["title"]
-        except:
-            posted_data = json.loads(request.data.decode("utf-8"))
-            title = posted_data["title"]
+        title = request.form["title"]
         db = get_db()
         db.execute(
         "DELETE FROM books WHERE title = '{0}'".format(title)

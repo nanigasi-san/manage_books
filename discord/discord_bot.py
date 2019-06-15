@@ -4,6 +4,8 @@ from json import dumps
 
 TOKEN = "NTExNjk1MDQxODc4NTU2Njk0.XP9KQw.p1blUZuBk6LURPQtGCytbozHYP8"#アクセストークン
 client = discord.Client()
+owner_id_list = [474487324093317130,465433493388656651]
+
 def post_and_responce(subject,data):
     URL = "http://127.0.0.1:5000/"+subject
     res = requests.post(url=URL,data=data)
@@ -23,7 +25,7 @@ async def on_ready():
 @client.event
 async def on_message(msg):
     channel = msg.channel
-    if msg.author == client.user:
+    if (msg.author == client.user) or (msg.author.id not in owner_id_list):
         return
 
     if msg.content[:5] == "$rent":
@@ -49,14 +51,17 @@ async def on_message(msg):
         title_user = [str(t)+"："+str(u) for t,u in books]
         book_str = "\n".join(title_user)
         await channel.send(book_str)
-    
+
     if msg.content[:4] == "$add":
         book_data = msg.content[5:].split("\n")
         data = {"title":book_data[0],
                 "author":book_data[1],
                 "genre":book_data[2]}
         res = post_and_responce("newbook",dumps(data))
-        await channel.send(res["res"])
+        if "message" in res:
+            await channel.send(res["res"]+"\n"+res["message"])
+        else:
+            await channel.send(res["res"])
 
     if msg.content[:4] == "$del":
         book_title = msg.content[5:]

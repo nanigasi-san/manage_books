@@ -19,7 +19,7 @@ def newbook():
     ).fetchall()
     titles = [t[0] for t in titles]
     if (len(titles) == 1):
-        return jsonify(res=":)",message="タイトルが重複しています")
+        return jsonify(res=":(",message="タイトルが重複しています")
     db.commit()
     db.execute(
     "INSERT INTO books (title, author, genre, lending, username) VALUES (?, ?, ?, ?, ?)",

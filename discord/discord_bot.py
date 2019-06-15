@@ -4,7 +4,6 @@ import json
 
 TOKEN = "NTExNjk1MDQxODc4NTU2Njk0.XP9KQw.p1blUZuBk6LURPQtGCytbozHYP8"#アクセストークン
 client = discord.Client()
-owner_list = [474487324093317130,465433493388656651]
 def post_and_responce(data):
     URL = "http://127.0.0.1:5000/rental"
     res = requests.post(URL,data=data).json()
@@ -24,7 +23,7 @@ async def on_ready():
 @client.event
 async def on_message(msg):
     channel = msg.channel
-    if (msg.author == client.user) or (msg.author.id not in owner_list):
+    if msg.author == client.user:
         return
 
     if msg.content[:5] == "$rent":

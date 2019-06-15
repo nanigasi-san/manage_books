@@ -1,6 +1,6 @@
 import discord
 import requests
-import json
+from json import dumps
 
 TOKEN = "NTExNjk1MDQxODc4NTU2Njk0.XP9KQw.p1blUZuBk6LURPQtGCytbozHYP8"#アクセストークン
 client = discord.Client()
@@ -11,8 +11,8 @@ def post_and_responce(subject,data):
 
 def get_books():
     URL = "http://127.0.0.1:5000/books_data"
-    res = requests.get(URL).json()
-    return (res["data"],res["res"])
+    res = requests.get(URL)
+    return res.json()
 
 @client.event
 async def on_ready():
@@ -32,8 +32,8 @@ async def on_message(msg):
         data = {"lending": True,
                 "title": book_title,
                 "username": username}
-        res = post_and_responce("rental",json.dumps(data))
-        await channel.send(str(res["res"]))
+        res = post_and_responce("rental",dumps(data))
+        await channel.send(res["res"])
 
     if msg.content[:7] == "$return":
         book_title = msg.content[8:]
@@ -41,11 +41,11 @@ async def on_message(msg):
         data = {"lending": False,
                 "title": book_title,
                 "username": ''}
-        res = post_and_responce("rental",json.dumps(data))
-        await channel.send(str(res["res"]))
+        res = post_and_responce("rental",dumps(data))
+        await channel.send(res["res"])
 
     if msg.content == "$books":
-        books,_ = get_books()
+        books = get_books()["data"]
         title_user = [str(t)+"："+str(u) for t,u in books]
         book_str = "\n".join(title_user)
         await channel.send(book_str)
@@ -55,13 +55,13 @@ async def on_message(msg):
         data = {"title":book_data[0],
                 "author":book_data[1],
                 "genre":book_data[2]}
-        res = post_and_responce("newbook",json.dumps(data))
-        await channel.send(str(res["res"]))
+        res = post_and_responce("newbook",dumps(data))
+        await channel.send(res["res"])
 
     if msg.content[:4] == "$del":
         book_title = msg.content[5:]
         data = {"title":book_title}
-        res = post_and_responce("delbook",json.dumps(data))
-        await channel.send(str(res["res"]))
+        res = post_and_responce("delbook",dumps(data))
+        await channel.send(res["res"])
 
 client.run(TOKEN)

@@ -40,6 +40,7 @@ def delbook():
         "DELETE FROM books WHERE title = '{0}'".format(title)
         )
         db.commit()
+        return jsonify(res=":)")
     except:
         return jsonify(res=":(")
 
